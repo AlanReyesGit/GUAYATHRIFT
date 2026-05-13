@@ -1,9 +1,8 @@
-import { FaInstagram } from "react-icons/fa"
+import { FaInstagram } from "react-icons/fa";
 
 function Navbar() {
   return (
     <nav className="navbar">
-
       <h1 className="logo">Guayathrift</h1>
 
       <a
@@ -14,9 +13,8 @@ function Navbar() {
       >
         <FaInstagram />
       </a>
-
     </nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
