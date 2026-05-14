@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useCart } from "../hook/UsarCarro";
 import PedidoConfirmado from "./PedidoConfirmado";
 import LoadingPedido from "./LoadingPedido";
+import { logEvento } from "../utils/logEvento";
 
 function CheckoutModal({ close, closeCart }) {
   const { cart, cartTotal, clearCart } = useCart();
-
+  let uid = localStorage.getItem("uid");
   const [pedidoConfirmado, setPedidoConfirmado] = useState(null);
   const [enviando, setEnviando] = useState(false);
 
@@ -121,7 +122,7 @@ function CheckoutModal({ close, closeCart }) {
           body: JSON.stringify(pedido),
         },
       );
-
+      logEvento("compra_realizada", pedido.nombre + "-" + uid, pedido.productos, id, cartTotal());
       clearCart();
       setPedidoConfirmado(id);
 

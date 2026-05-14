@@ -2,11 +2,12 @@ import { useState } from "react";
 import { useCart } from "../hook/UsarCarro";
 import CartItem from "./ArticuloCarro";
 import CheckoutModal from "./ModalPedido";
+import { logEvento } from "../utils/logEvento";
 
 function CartDrawer({ isOpen, closeCart }) {
   const { cart, cartTotal } = useCart();
   const [checkout, setCheckout] = useState(false);
-
+  let uid = localStorage.getItem("uid");
   return (
     <>
       <div className={`cart-drawer ${isOpen ? "open" : ""}`}>
@@ -27,7 +28,14 @@ function CartDrawer({ isOpen, closeCart }) {
         <div className="cart-footer">
           <h3>Total: ${cartTotal()}</h3>
 
-          <button className="checkout" onClick={() => setCheckout(true)}>
+          <button className="checkout" 
+            disabled={cart.length === 0}
+            onClick={() => {
+              if (cart.length === 0) return;
+              logEvento("abrir_checkout", uid, cart.map((p) => p.nombre).join(", "), "", cartTotal());
+              setCheckout(true);
+            }
+          }>
             Realizar pedido
           </button>
         </div>

@@ -2,9 +2,11 @@ import { useState, useRef } from "react";
 import Galeria from "./Galeria";
 import { useCart } from "../hook/UsarCarro";
 import animarAlCarrito from "../utils/AnimarCarrito";
+import { logEvento } from "../utils/logEvento";
 
 function CartaProducto({ product }) {
   const { cart, addToCart } = useCart();
+  let uid = localStorage.getItem("uid");
 
   const [imagenActual, setImagenActual] = useState(0);
   const [touchStart, setTouchStart] = useState(null);
@@ -46,6 +48,8 @@ function CartaProducto({ product }) {
     const cartIcon = document.querySelector(".floating-cart");
 
     animarAlCarrito(imagenRef.current, cartIcon);
+
+    logEvento("agregar_producto", uid, product.nombre, "-" , product.precio);
   }
 
   return (

@@ -157,6 +157,10 @@ body {
   cursor: pointer;
 }
 
+.checkout:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 /* ARTICULO CARRO */
 
 .cart-item {
