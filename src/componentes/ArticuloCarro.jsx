@@ -23,9 +23,9 @@ function CartItem({ item }) {
 
         <p>${item.precio}</p>
 
-        <p>Talla: ${item.talla}</p>
+        <p>Talla: {item.talla}</p>
 
-        <p>Marca: ${item.marca}</p>
+        <p>Marca: {item.marca}</p>
 
         <div className="cart-controls">
           <button className="remove" onClick={handleRemove}>
