@@ -39,3 +39,4 @@ function CartItem({ item }) {
 }
 
 export default CartItem;
+

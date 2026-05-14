@@ -47,3 +47,4 @@ function CartDrawer({ isOpen, closeCart }) {
 }
 
 export default CartDrawer;
+

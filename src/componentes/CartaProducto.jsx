@@ -102,3 +102,4 @@ function CartaProducto({ product }) {
 }
 
 export default CartaProducto;
+
