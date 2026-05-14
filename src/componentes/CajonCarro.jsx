@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useCart } from "../hook/UsarCarro";
 import CartItem from "./ArticuloCarro";
 import CheckoutModal from "./ModalPedido";
-import { logEvento } from "../utils/logEvento";
+import { logEvento } from "../utils/LogEvento";
 
 function CartDrawer({ isOpen, closeCart }) {
   const { cart, cartTotal } = useCart();

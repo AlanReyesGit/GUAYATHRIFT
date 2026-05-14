@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useCart } from "../hook/UsarCarro";
 import PedidoConfirmado from "./PedidoConfirmado";
 import LoadingPedido from "./LoadingPedido";
-import { logEvento } from "../utils/logEvento";
+import { logEvento } from "../utils/LogEvento";
 
 function CheckoutModal({ close, closeCart }) {
   const { cart, cartTotal, clearCart } = useCart();

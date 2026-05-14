@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import Galeria from "./Galeria";
 import { useCart } from "../hook/UsarCarro";
 import animarAlCarrito from "../utils/AnimarCarrito";
-import { logEvento } from "../utils/logEvento";
+import { logEvento } from "../utils/LogEvento";
 
 function CartaProducto({ product }) {
   const { cart, addToCart } = useCart();

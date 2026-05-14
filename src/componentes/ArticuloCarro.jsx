@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useCart } from "../hook/UsarCarro";
-import { logEvento } from "../utils/logEvento";
+import { logEvento } from "../utils/LogEvento";
 
 function CartItem({ item }) {
   const { removeFromCart } = useCart();
