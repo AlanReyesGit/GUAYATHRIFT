@@ -5,7 +5,7 @@ import NavBar from "../componentes/BarraNavegacion";
 import Pie from "../componentes/Pie";
 import Productos from "../datos/Productos";
 import ProductCard from "../componentes/CartaProducto";
-import { logEvento } from "../utils/logEvento";
+import { logEvento } from "../utils/LogEvento";
 
 function Home() {
   const [open, setOpen] = useState(false);
