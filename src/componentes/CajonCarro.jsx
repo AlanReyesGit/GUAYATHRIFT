@@ -33,7 +33,7 @@ function CartDrawer({ isOpen, closeCart }) {
         </div>
       </div>
 
-      {checkout && <CheckoutModal close={() => setCheckout(false)} />}
+      {checkout && <CheckoutModal close={() => setCheckout(false)} closeCart={closeCart}/>}
     </>
   );
 }

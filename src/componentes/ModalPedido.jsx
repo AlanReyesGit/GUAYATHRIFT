@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { useCart } from "../hook/UsarCarro";
+import PedidoConfirmado from "./PedidoConfirmado";
+import LoadingPedido from "./LoadingPedido";
 
-function CheckoutModal({ close }) {
-  const { cart, cartTotal } = useCart();
+function CheckoutModal({ close, closeCart }) {
+  const { cart, cartTotal, clearCart } = useCart();
+
+  const [pedidoConfirmado, setPedidoConfirmado] = useState(null);
+  const [enviando, setEnviando] = useState(false);
 
   const [form, setForm] = useState({
     nombre: "",
@@ -11,17 +16,16 @@ function CheckoutModal({ close }) {
     correo: "",
   });
 
+  const [errores, setErrores] = useState({});
+
   const formularioCompleto =
     form.nombre.trim() !== "" &&
     form.cedula.length === 10 &&
     form.celular.length >= 10;
 
-  const [errores, setErrores] = useState({});
-
   function handleChange(e) {
     let value = e.target.value;
 
-    /* BLOQUEAR LETRAS EN CEDULA Y CELULAR */
     if (e.target.name === "cedula" || e.target.name === "celular") {
       value = value.replace(/\D/g, "");
     }
@@ -32,7 +36,6 @@ function CheckoutModal({ close }) {
     });
   }
 
-  /* VALIDAR CEDULA ECUATORIANA REAL */
   function validarCedula(cedula) {
     if (!/^[0-9]{10}$/.test(cedula)) return false;
 
@@ -83,20 +86,14 @@ function CheckoutModal({ close }) {
     return Object.keys(e).length === 0;
   }
 
-  const [enviando, setEnviando] = useState(false);
-
   const enviarCompra = async (e) => {
     e.preventDefault();
 
     if (enviando) return;
-    setEnviando(true);
 
     if (!validar()) return;
 
-    /*if(!validarCedula(form.cedula)){
-alert("La cédula ingresada no es válida")
-return
-}*/
+    setEnviando(true);
 
     const id = "GT-" + Date.now();
 
@@ -125,100 +122,125 @@ return
         },
       );
 
-      console.log("Pedido enviado:", pedido);
+      clearCart();
+      setPedidoConfirmado(id);
 
-      alert("Pedido enviado correctamente");
-
-      close();
     } catch (error) {
-      console.error("Error enviando pedido", error);
 
+      console.error("Error enviando pedido", error);
       alert("Error enviando pedido");
+
+    } finally {
+
+      setEnviando(false);
+
     }
   };
 
   return (
-    <div className="checkout-overlay">
-      <div className="checkout-modal">
-        <div className="checkout-header">
-          <h2>INGRESE SUS DATOS</h2>
-        </div>
+    <>
+      {enviando && <LoadingPedido />}
 
-        <form onSubmit={enviarCompra} className="checkout-form">
-          <label>Nombre completo</label>
-          <input
-            type="text"
-            name="nombre"
-            value={form.nombre}
-            onChange={handleChange}
-            className={
-              errores.nombre ? "input-error" : form.nombre ? "input-ok" : ""
-            }
-          />
-          {errores.nombre && <span className="error">{errores.nombre}</span>}
+      <div className="checkout-overlay">
+        <div className="checkout-modal">
 
-          <label>Cédula</label>
-          <input
-            type="text"
-            name="cedula"
-            value={form.cedula}
-            onChange={handleChange}
-            maxLength={10}
-            className={
-              errores.cedula
-                ? "input-error"
-                : form.cedula.length === 10 && validarCedula(form.cedula)
-                  ? "input-ok"
-                  : ""
-            }
-          />
-          {errores.cedula && <span className="error">{errores.cedula}</span>}
-
-          <label>Celular</label>
-          <input
-            type="text"
-            name="celular"
-            value={form.celular}
-            onChange={handleChange}
-            maxLength={13}
-            className={
-              errores.celular ? "input-error" : form.celular ? "input-ok" : ""
-            }
-          />
-          {errores.celular && <span className="error">{errores.celular}</span>}
-
-          <label>Correo (opcional)</label>
-          <input
-            type="email"
-            name="correo"
-            value={form.correo}
-            onChange={handleChange}
-            className={
-              errores.correo
-                ? "input-error"
-                : form.correo && /^\S+@\S+\.\S+$/.test(form.correo)
-                  ? "input-ok"
-                  : ""
-            }
-          />
-          {errores.correo && <span className="error">{errores.correo}</span>}
-
-          <div className="checkout-actions">
-            <button type="button" className="checkout-cancel" onClick={close}>
-              Cancelar
-            </button>
-
-            <button
-              type="submit"
-              className="checkout-confirm"
-              disabled={!formularioCompleto || enviando}
-            >
-              Confirmar pedido
-            </button>
+          <div className="checkout-header">
+            <h2>INGRESE SUS DATOS</h2>
           </div>
-        </form>
+
+          <form onSubmit={enviarCompra} className="checkout-form">
+
+            <label>Nombre completo</label>
+            <input
+              type="text"
+              name="nombre"
+              value={form.nombre}
+              onChange={handleChange}
+              className={
+                errores.nombre ? "input-error" : form.nombre ? "input-ok" : ""
+              }
+            />
+            {errores.nombre && <span className="error">{errores.nombre}</span>}
+
+            <label>Cédula</label>
+            <input
+              type="text"
+              name="cedula"
+              value={form.cedula}
+              onChange={handleChange}
+              maxLength={10}
+              className={
+                errores.cedula
+                  ? "input-error"
+                  : form.cedula.length === 10 && validarCedula(form.cedula)
+                  ? "input-ok"
+                  : ""
+              }
+            />
+            {errores.cedula && <span className="error">{errores.cedula}</span>}
+
+            <label>Celular</label>
+            <input
+              type="text"
+              name="celular"
+              value={form.celular}
+              onChange={handleChange}
+              maxLength={13}
+              className={
+                errores.celular ? "input-error" : form.celular ? "input-ok" : ""
+              }
+            />
+            {errores.celular && (
+              <span className="error">{errores.celular}</span>
+            )}
+
+            <label>Correo (opcional)</label>
+            <input
+              type="email"
+              name="correo"
+              value={form.correo}
+              onChange={handleChange}
+              className={
+                errores.correo
+                  ? "input-error"
+                  : form.correo && /^\S+@\S+\.\S+$/.test(form.correo)
+                  ? "input-ok"
+                  : ""
+              }
+            />
+            {errores.correo && <span className="error">{errores.correo}</span>}
+
+            <div className="checkout-actions">
+
+              <button type="button" className="checkout-cancel" onClick={close}>
+                Cancelar
+              </button>
+
+              <button
+                type="submit"
+                className="checkout-confirm"
+                disabled={!formularioCompleto || enviando}
+              >
+                {enviando ? "Enviando..." : "Confirmar pedido"}
+              </button>
+
+            </div>
+          </form>
+
+        </div>
       </div>
-    </div>
+
+      {pedidoConfirmado && (
+        <PedidoConfirmado
+          pedidoId={pedidoConfirmado}
+          cerrar={() => {
+            setPedidoConfirmado(null);
+            close();
+            closeCart();
+          }}
+        />
+      )}
+    </>
   );
 }
 

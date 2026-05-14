@@ -35,6 +35,10 @@ export function CartProvider({ children }) {
     return cart.reduce((total, p) => total + p.precio * p.quantity, 0);
   }
 
+  function clearCart() {
+    setCart([]);
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -42,6 +46,7 @@ export function CartProvider({ children }) {
         addToCart,
         removeFromCart,
         cartTotal,
+        clearCart
       }}
     >
       {children}
