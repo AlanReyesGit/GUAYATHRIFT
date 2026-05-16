@@ -24,6 +24,18 @@ import VestidoRosaMelon3 from "../imagenes/VestidoRosaMelon3.jpeg"
 import VestidoNegroRosas1 from "../imagenes/VestidoNegroRosas1.jpeg"
 import VestidoNegroRosas2 from "../imagenes/VestidoNegroRosas2.jpeg"
 import VestidoNegroRosas3 from "../imagenes/VestidoNegroRosas3.jpeg"
+import CamisetaVolcom1 from "../imagenes/CamisetaVolcom1.jpeg"
+import CamisetaVolcom2 from "../imagenes/CamisetaVolcom2.jpeg"
+import CamisaTommy1 from "../imagenes/CamisaTommy1.jpeg"
+import CamisaTommy2 from "../imagenes/CamisaTommy2.jpeg"
+import CamisaTommy3 from "../imagenes/CamisaTommy3.jpeg"
+import CamisaBillabong1 from "../imagenes/CamisaBillabong1.jpeg"
+import CamisaBillabong2 from "../imagenes/CamisaBillabong2.jpeg"
+import CamisaBillabong3 from "../imagenes/CamisaBillabong3.jpeg"
+import BuzoRayado1 from "../imagenes/BuzoRayado1.jpeg"
+import BuzoRayado2 from "../imagenes/BuzoRayado2.jpeg"
+import BuzoRayado3 from "../imagenes/BuzoRayado3.jpeg"
+import BlusaAzul1 from "../imagenes/BlusaAzul1.jpeg"
 
 const productos = [
   {
@@ -52,7 +64,7 @@ const productos = [
   },
   {
     id: 4,
-    nombre: "Vestido rosa melon detalle floreado",
+    nombre: "Vestido rosa melon floreado",
     precio: 3,
     talla: "S",
     marca: "Bershka",
@@ -65,6 +77,49 @@ const productos = [
     talla: "L",
     marca: "Bershka",
     imagen: [VestidoNegroRosas1, VestidoNegroRosas2, VestidoNegroRosas3]
+  },
+  {
+    id: 6,
+    nombre: "Blusa azul",
+    precio: 5,
+    talla: "M",
+    marca: "",
+    imagen: [BlusaAzul1]
+  },
+  {
+    id: 7,
+    nombre: "Camisa Tommy Hilfiger",
+    precio: 7,
+    talla: "XL",
+    marca: "Tommy Hilfiger",
+    imagen: [CamisaTommy1, CamisaTommy2, CamisaTommy3]
+  }
+  ,
+  {
+    id: 8,
+    nombre: "Camisa Billabong",
+    precio: 5,
+    talla: "S",
+    marca: "Billabong",
+    imagen: [CamisaBillabong1, CamisaBillabong2, CamisaBillabong3]
+  }
+  ,
+  {
+    id: 9,
+    nombre: "Camisón Rayado",
+    precio: 5,
+    talla: "M",
+    marca: "",
+    imagen: [BuzoRayado1, BuzoRayado2, BuzoRayado3]
+  }
+  ,
+  {
+    id: 10,
+    nombre: "Camiseta Volcom",
+    precio: 5,
+    talla: "M",
+    marca: "Volcom",
+    imagen: [CamisetaVolcom1, CamisetaVolcom2]
   }
 ];
 
