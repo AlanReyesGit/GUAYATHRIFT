@@ -7,14 +7,24 @@ function CartItem({ item }) {
 
   const [removing, setRemoving] = useState(false);
 
+  const uid = localStorage.getItem("uid");
+
   function handleRemove() {
     setRemoving(true);
+
+    logEvento(
+      "eliminar_producto",
+      uid,
+      item.nombre,
+      "-",
+      item.precio
+    );
 
     setTimeout(() => {
       removeFromCart(item.id);
     }, 350);
   }
-  let uid = localStorage.getItem("uid");
+
   return (
     <div className={`cart-item ${removing ? "removing" : ""}`}>
       <img src={item.imagen[0]} alt={item.nombre} />
@@ -29,7 +39,10 @@ function CartItem({ item }) {
         <p>Marca: {item.marca}</p>
 
         <div className="cart-controls">
-          <button className="remove" onClick={() => { logEvento("eliminar_producto", uid, item.nombre, "-", item.precio); handleRemove(); }}>
+          <button
+            className="remove"
+            onClick={handleRemove}
+          >
             🗑️ Eliminar
           </button>
         </div>
